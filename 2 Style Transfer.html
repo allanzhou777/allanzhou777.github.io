@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="allan">
+  <meta name="author" content="Allan Zhou">
+  
+  <title>Allan Zhou</title>
+
+
+  <link rel="stylesheet" type="text/css" media="all" href="Website.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"> 
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700;6..96,800;6..96,900&family=Limelight&family=Noto+Serif:wght@700&family=Unkempt&display=swap" rel="stylesheet">
+</head>
+
+
+
+
+<body>
+  <section>
+    <h1>
+      Neural Style Transfer Part 2: How does Style Transfer Work
+    </h1>
+    <p>Jump to:</p>
+    <ul>
+        <li><a href = "#Basic">[Basic Structure]</a></li>
+        <li><a href = "#Model">[Model architecture overview]</a></li>
+        <li><a href = "#Summary">[Summary]</a></li>
+      </ul>
+  </section>
+
+  <h2>Introduction</h2>
+  <p>In part 1, we introduced what style transfer is and the basics surrounding this amazing technology. Then, we highlighted the importance of this technology, which leads us to this article, the workings of style transfer.</p>
+  <p>Now that we know a bit about what style transfer is, the distinctions between different types of style transfer, and what it can be used for, let’s explore in-depth how it works. </p>
+  <p>In this section, we’ll look at several deep learning-based approaches to style transfer and assess their advantages and limitations. While there are a number of traditional methods – including the ones mentioned above – we’re going to look at the approaches that use neural networks, which have become the state-of-the-art methods for style transfer.</p>    
+  <p>In general, deep learning architectures suitable for style transfer are based on variations of convolutional neural networks (CNNs). For a brief introduction to CNNs, check out this <a href = "https://www.tensorflow.org/tutorials/images/cnn">[overview]</a>.</p>
+  
+  <h2><a id="Basic">Basic Structure</a></h2>
+  <p>Training a style transfer model requires two networks: a pre-trained feature extractor and a transfer network. The pre-trained feature extractor is used to avoid having to use paired training data. Its usefulness arises from the curious tendency for individual layers of deep convolutional neural networks trained for image classification to specialize in understanding specific features of an image.</p>
+INSERT FRITZ.AI IMAGE FOR DIFFERENT LAYERS OF A STYLE TRANSFER MODEL
+  <p>Some layers learn to extract the content of an image (the shape of a dog or the position of a car), while others learn to focus on texture (the small brush strokes of a painter or the fractal patterns of nature). Style transfer exploits this by running two images through a pre-trained neural network and looking at the pre-trained network’s output at multiple layers. Images that produce similar outputs at one layer of the pre-trained model likely have similar content, while matching outputs at another layer indicates similar style.</p>
+  <p>The pre-trained model enables us to compare the content and style of two images, but it doesn't create the final stylized image. That’s the job of a second neural network -- the transfer network. The transfer network does exactly what it sounds like: it translates one image's style onto the content of another image.</p>
+  <p>The quality of the stylized image is defined by a custom loss function that has variables regarding both content and style. The extracted content features of the stylized image are compared to the original content image, while the extracted style features are compared to those from the reference style image(s). After each step, only the transfer network is updated. The weights of the pre-trained feature extractor remain fixed throughout. By weighting the different terms of the loss function, we can train models to produce output images with lighter or heavier stylization.</p>
+
+  <h2><a id="Model">Model architecture overview</a></h2>
+  <p>There are too many specific neural network architectures to cover exhaustively, but we’ll highlight a few robust, reliable ones that make good places to start.</p>
+  
+  <h3>Multiple styles per model</h3>
+  <p>In 2017, a year after the original fast style transfer technique was published, <a href = "https://arxiv.org/abs/1610.07629">[researchers at Google extended the technique]</a> to allow a single transfer network to produce images in multiple styles and even blend more than one style. The main contribution here was the inclusion of “conditional instance normalization” layers within the network so that the stylized image produced could be conditioned on an additional model input.</p>
+  <p>For example, a model could be trained on a Van Gogh, Picasso, and Matisse painting. When it’s time to stylize an image, the user can input [1, 0, 0] for van Gogh, [0, 1, 0] for Picasso, or [0.33, 0.33, 0.33] for a blend of all three. This approach removes the need to train and store multiple models for multiple styles, and it provides creative freedom by letting users mix and match a continuum of styles.</p>
+
+  <h3>Arbitrary styles per model</h3>
+  <p>A common characteristic of both single and multi-style transfer models is that they can only produce images in styles that they’ve seen during training. A model trained on van Gogh’s work cannot produce images like Picasso without retraining the entire network. <a href = "https://arxiv.org/abs/1703.06868">[Arbitrary style transfer by Huang et al]</a> changes that. Arbitrary style transfer models take a content image and a style image as input and perform style transfer in a single pass. Essentially, the model is able to learn and apply any style without preprocessing data.</p>
+
+  <h3>Style transfer optimizations and extensions</h3>
+  <p>Finally, there are a few optimization and extensions of style transfer that are worth mentioning.</p>
+  <p>The first is stable style transfer. If one were to train a style transfer model and apply that model to frames of a video, the resulting video would contain a fair amount of flickering. Even small changes and noise from frame to frame in a video can be enough to introduce distracting temporal inconsistencies. For example, a soccer ball may change color mid flight. To solve this, stable style transfer models introduce a new loss term related to “temporal coherence”, where two sequential frames are stylized and compared so that the model learns to maintain the same stylization for an object in similar frames.</p>
+PUT FRITZ AI VIDEO ON STABLE STYLE TRANSFER
+
+  <p>Another extension of style transfer is color preservation. In some cases, we may want to transfer the brush strokes of an artist to an image, but preserve the colors of the original palette. This can be done in several ways, including changing the input image representation from RGB to a different color space and applying style transfer only to the luminance channel only, or by applying a <a href="https://arxiv.org/abs/1606.05897">[color transfer algorithm]</a> to the final stylized image.</p>
+  <p>Finally, while most style transfer use cases mentioned thus far have applied an artistic style to a photo image, it is possible to transfer other heuristics between two photorealistic images, such as weather or time of day. <a href = "https://arxiv.org/abs/1802.06474">[Photorealistic style transfer]</a> typically requires modifications to the encoder-decoder transfer network to reduce artifacting that’s introduced by deep convolution and upsampling layers.</p>
+
+  <h2><a id="Summary">Summary</a></h2>
+  <p>In Part 2 of this blog, we discussed the basic structure of style transfer using neural networks and a multitude of different styles that could be used in extension of the standard model. Read more in <u>[Part 3]</u> where we'll discuss specific uses of style transfer in commercial art, gaming, and more. </p>
+  
+</body>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="allan">
+  <meta name="author" content="Allan Zhou">
+  
+  <title>Allan Zhou</title>
+
+
+  <link rel="stylesheet" type="text/css" media="all" href="Website.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"> 
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700;6..96,800;6..96,900&family=Limelight&family=Noto+Serif:wght@700&family=Unkempt&display=swap" rel="stylesheet">
+</head>
+
+
+
+  
+  <body>
+    <section>
+        <h1>
+          Neural Style Transfer Part 5: An In-Depth Walkthrough
+        </h1>
+      </section>
+
+      <h2>Changing the Hyperparameters</h2> 
+      <p>Finally, with the theory discussed, let’s experiment neural style transfer with different hyperparameters. For your reference, the style transfer function is called with the arguments:</p>
+      <ol>
+          <li>Path of content image</li>
+          <li>List of paths of style images</li>
+          <li>Content loss weight</li>
+          <li>Style loss weight</li>
+          <li>Number of iterations</li>
+          <li>List of weights for the style images — In case you want to transfer style from multiple images, you’ll need to provide weight to each target style image</li>
+          <li>List of weights for style layers — The weights assigned to each layer involved in the style loss function</li>
+      </ol>
+      <p>We’ll use the following images for carrying out the experiments:</p>
+INSERT HYPERPARAMETERS_0
+      <h3>5 Style Layers with Equal Loss Weights, 1 Content Layer</h3>
+      <p>We’ll use this image to compare the result of altering the hyperparameters.</p>
+INSERT HYPERPARAMETERS_1
+      <h3>Increasing weight of style loss function from 0.005 to 0.1</h3>
+      <p>As expected, increasing the weight nudges the algorithm to capture more style. Hence, the recomposition has a better combination of blue and yellow.</p>
+INSERT HYPERPARAMETERS_2
+      <h3>Using a single layer for style</h3>
+      <p>Using just block_1_conv_1 for style loss does not result in a captivating recomposition. Perhaps, as syle consists of various shades and spatial attributes, filters from multiple layers are necessary.</p>
+INSERT HYPERPARAMETERS_3
+      <h3>Using a different layer for content loss</h3>
+      <p>Using block1_conv1 for content information forces the network to capture global features from the target content image. This probably interferes with the global features from the style image, and we end up getting an appalling style transfer. The result, I believe, demonstrates why it is encouraged to use deeper layers for NST. They focus solely on local details about prominent objects in the content image, enabling a smooth replication of the style image’s theme.</p>
+
+INSERT HYPERPARAMETERS_4
+      <h3>Manually assigning weights to style layers [0.4,0.3,0.2,0.05,0.05]</h3>
+      <p>Although there’s not a discernible difference between 4.1 and the current recomposition, it seems to me that the latter has an overall light shade. This can be due to a higher weight assigned to block1_conv_1, which according to 4.3, generates a white tone from the Starry night painting.</p>
+INSERT HYPERPARAMETERS_5
+      <h3>Manually assigning weights to style layers [0.05,0.05,0.2,0.3,0.4]</h3>
+      <p>It has a more striking combination of colors compared to 4.5. Assigning higher weights to deeper layers provides more appealing results. Gram matrices from these layers are perhaps computing the correlation between more dominant global features from Starry Night.</p>
+INSERT HYPERPARAMETERS_6
+      <h3>Using multiple images for style transfer</h3>
+      <p>Finally, let’s capture style from multiple images for more artistic recompositions. It entails a slight modification in style loss. Style loss for each <b>individual</b> image remains as discussed earlier in 3.2.2</p>
+INSERT STYLE_LOSS_1
+      <p>However, the total style loss is:</p>
+INSERT STYLE_LOSS_2
+      <p>Essentially, as we have done so far, we assign weight to style loss from each image and sum them up.</p>
+
+      <h2>Conclusions</h2>
+      <p>Although this algorithm is complete now, I encourage you to carry out more experiments with the provided code. Also, I have implemented the algorithm from scratch, and there is likely a more efficient procedure. I hope it was fun generating art using neural networks. Combining neural style transfer with generative adversarial networks is an enticing proposition, and I hope to cover it in the future.</p>
+      <p>Visit the final part of this guide in [Part 6] to see a variety of resources you can utilize in your </p>
+
+INSERT HYPERPARAMETERS_7
+
+  </body>

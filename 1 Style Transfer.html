@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="allan">
+  <meta name="author" content="Allan Zhou">
+  
+  <title>Allan Zhou</title>
+
+
+  <link rel="stylesheet" type="text/css" media="all" href="Website.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"> 
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700;6..96,800;6..96,900&family=Limelight&family=Noto+Serif:wght@700&family=Unkempt&display=swap" rel="stylesheet">
+</head>
+
+
+
+
+<body>
+  <section>
+    <h1>
+      Neural Style Transfer Part 1: The Basics
+    </h1>
+  </section>
+
+
+  <h2>Introduction</h2>
+  <p>Lets say you wanted to compose images in the style of another image (every wish you could paint like Picasso or Van Gosh???). This is known as <b>neural style transfer</b>, which is a really cool optimization technique used to style two images -- a <b>content</b> image and a <b>style reference image</b> -- and blend them together such that the content image is "painted" in the style of the style image.</p>
+  <U>INSERT FRITZ AI PICTURE</U> 
+  <p>But how does style transfer actually work? Are there different approaches, what are potential benefits and limitations, and why exactly does this matter to me? Can I use it, or is this super complicated and tedious and time-consuming?
+  <p style="font-size: 40%">Spoiler: its easy, and anybody can do it with a little guidance</p>
+  <p>In this guide, you'll find answers to all those questions, and many many many more that you may have thought up in the time you started reading this article. Whether you're an inexperienced student (like me), a professional data scientist, or a digital art designer or just somebody who wants to learn neural style transfer, this guide is for you :)
+  <p>Here's a look at what we'll cover</p>
+
+  <h3>Part 1: Style transfer -- the basics</h3>
+  <ul>
+    <li>What is style transfer?</li>
+    <li>Modes and types of style transfer</li>
+    <li>Why is style transfer important?</li>
+  </ul>
+  <h3>Part 2: How does style transfer work?</h3>
+  <ul>
+    <li>Inputs and outputs</li>
+    <li>Basic Structure</li>
+    <li>Model architecture overview</li>
+    <li>How style transfer works on the edge</li>
+  </ul>
+  <h3>Part 3: Use cases and applications</h3>
+  <ul>
+    <li>Photo and video editing</li>
+    <li>Comemrcial art</li>
+    <li>Gaming</li>
+    <li>Virtual Reality</li>
+  </ul>
+  <h3>Part 4: Resources</h3>
+  <ul>
+    <li>Getting started</li>
+    <li>Tutorials</li>
+    <li>Literature Review</li>
+    <li>Datasets available</li>
+  </ul>
+
+  <h2>Part 1: Style transfer -- the basics</h2>
+  <h3>What is style transfer</h3>
+  <p>At the barebones level, style transfer allows you to recreate the content of an image in the style of another. If you’ve ever imagined what a photo might look like were it painted by a famous artist, then you're thinking of exactly what style transfer does.</p>
+  <p>Central Austin has a famous mural known as the "Greetings from Austin" mural (shown below). What if, instead of being drawn by a local Austinite, this mural was drawn by artist Hokusai, who also created the famous Great Wave? Well, style transfer allows you to create exactly that. Neat, eh!</p>
+  INSERT GREETINGS FROM AUSTIN PIC, AND TWO PICS WARM AND COOL 
+
+  <h3>Modes and types of style transfer</h3>
+  <p>Alright, so at this point, we know what style transfer can do. More generally though, style transfer is an example of image stylization, an image processing and manipulation technique utilized in the broader field of non-photorealistic rendering.</p>
+  <p>One may presume that lots of 'style-reference' images are require for the computer to learn the style utilized by the creator/author. However, in recent years, a new approach, neural style transfer (NST), has changed this. NST employs deep neural networks to power these transformations, extracting quantitative content and style feature data so that we can quantify how well the style transfer is working without the explicit image pairs. With this improved approach, only a single style reference image is needed for a successful the neural network. Very cool indeed</p>
+  
+  <h3>Why is style transfer important?</h3>
+  <p>Lets be honest, not everybody is an artist. And not everybody can be convinced that they can draw things, (I for one, still don't consider myself an even remotely good artist even though everybody I've met has said otherwise). However, I make up for this in my technical skills. In recent years, advances in technology, like style transfer, have enabled more people to create enjoyable (and pretty aesthetic) art.</p>
+  <p>This can easily be a creative asset, too. As a side project, you could use this technology to create different interpretations/renditions of famous masterpieces. And sometimes, this can even be commercially valuable. Recently, <a href="https://www.christies.com/features/A-collaboration-between-two-artists-one-human-one-a-machine-9332-1.aspx">Christie's featured AI artwork</a> sold at an auction for over $430,000, which is over 45 times the average price of artwork created by technology. </p>
+  <p>With technology improving and advancing every day, style transfer can expect to see endless opportunities in design, content creation, creativity-related development, and, of course, commercial art.</p>
+  <p>I mean, off the top of my head, I can see how style transfer can be applied in multiple ways:</p> 
+  <ul>
+    <li>Photo and video editing (you can add cool effects to sci-fi movies)</li>
+    <li>Commercial Art (make $$$)</li>
+    <li>Gaming (create different graphics and renders)</li>
+    <li>Virtual reality (pretty obvious here)</li>
+  </ul>
+  <p>Or course, this is nowhere near an exhaustive list, but it does hint at the massive potential of this technology.</p>
+
+  <h3>Final Notes</h3>
+  <p>You know, this is an interesting technology, and this first article has introduced me to style transfer. If only there were a part 2 where I could learn how it works... Wait, there is. Continue reading [Part 2: How Does Style Transfer Work?] to learn all about the ins and outs of this wonderful, emerging technology!! <p>
+
+</body>

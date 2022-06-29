@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="allan">
+  <meta name="author" content="Allan Zhou">
+  
+  <title>Allan Zhou</title>
+
+
+  <link rel="stylesheet" type="text/css" media="all" href="Website.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"> 
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700;6..96,800;6..96,900&family=Limelight&family=Noto+Serif:wght@700&family=Unkempt&display=swap" rel="stylesheet">
+</head>
+
+
+
+  
+  <body>
+    <section>
+      <h1>
+        Neural Style Transfer Part 4: Walkthrough Preparation
+      </h1>
+    </section>
+  
+  
+    <h2>Introduction</h2>
+    
+    <p>Since we are dealing with images, it shouldn’t surprise you that convolutional neural networks are at the crux of style transfer. For this particular demonstration, I’ll be using the vgg-19 network(with 19 layers), but you can use any other pre-trained network or even train your own, if you want to go above and beyond.</p>
+    <p>The Vgg-19 network has the following architecture:</p>
+  INSERT VGG19 IMAGE 1
+    <p>As a reminder, each layer has at least 64 filters that will be used to recognize and learn an image's features. For simplicity, the first 5 blocks will be analyzed in detail. </p>
+  INSERT ALL PICS FOR BLOCKS 1-5 (6 PICS TOTAL, 1-5 AND CONV 2 FOR PIC 5)
+    <p>What can be observed from the above pictures? The initial layers seem to identify the general context of the image (global attributes). These layers appear to recognize edges and colors globally, and hence, their outputs closely replicate the original image.</p>
+    <p>Then, as the image progresses through the network, the outputs distort. As observed, block_5_conv_2 is more focused on specific locations and pull information than about the shapes of different objects. The two filters below, for example, are interested in the finer details of the Eiffel tower.</p>
+OUTPUT OF BLOCK 5 CONV 2 (FILTERS 4 AND 13, TWO PICS TOTAL)
+
+    <h2>Image Recomposition</h2>
+    <p>Our aim is to create a new image that captures content from one image and style from another. Before we address the content and style aspects of this walk-through, lets discuss some recommendations before moving into the content and style information:</p>
+
+    <h3>Code</h3>
+    <p><b>Audience:</b>Although this content is geared towards intermediate machine learning users, beginners can still benefit by:</p>
+    <ul>
+      <li>Reading <a href="https://arxiv.org/abs/1508.06576">Gaty's Paper</a>, which will serve as an introduction to neural algorithms utilized in artistic manipulations, particularly those dealing with neural style transfer. </li>
+      <li><a href="https://developers.google.com/machine-learning/crash-course/reducing-loss/gradient-descent">understand gradient descent</a></li>
+    </ul>
+    <p><b>Time Estimated:</b> 60 minutes</p>
+
+    <h3>Content Information</h3>
+    <p>We established in the previous section that outputs from a deeper layer help identify image content. We now require a mechanism to capture the content. For that, we use some familiar mathematics — loss functions and backpropagation.</p>
+    
+    <h3>Style and combined loss</h3>
+    <p>First, we need to establish the function for style loss. Suppose, upon passing the target style image through block_1_conv_1 we get a gram matrix G. We input our noise image X through the same layer and compute its gram matrix (P). The style loss is then calculated as:</p>
+INSERT FIRST IMAGE_RECOMPOSITION_1
+    <p>Here,(i,j) are index notations for locations in the gram matrices. By minimizing this function, we ensure that X has the same feature correlations as our target-style image.</p>
+    <p>Another thing to note is that, unlike content loss which was calculated from a single layer, style loss is calculated from multiple layers.<a href="https://arxiv.org/pdf/1508.06576.pdf">Gaty's et al</a> used five layers for this purpose. Hence the final style loss is:</p>
+INSERT SECOND IMAGE_RECOMPOSITION_2
+    <p>W is the weight assigned to loss from each layer. It’s a hyperparameter and can be tweaked around to see how the recomposition changes. We’ll discuss the result of altering these weights and using a single layer for style transfer in the last section.</p>
+    <p>The combined loss function is the sum of style and content loss. Again, each individual function has a weight. More weight to style will ensure that the recomposed image captures more style and vice versa.</p>
+INSERT THIRD IMAGE_RECOMPOSITION_3  
+    <h2>Conclusion</h2>
+    <p>Everything you've read up til now is to prepare you for the final step: the algorithm. To see the algorithm in its full glory, [click here] for part five of the style transfer guide. </p>
+
+
+
+
+<!-- 
+    <U>INSERT  AI PICTURE</U> 
+    <p>But how does style transfer actually work? Are there different approaches, what are potential benefits and limitations, and why exactly does this matter to me? Can I use it, or is this super complicated and tedious adn time consuming?
+    <p style="font-size: 40%">Spoiler: its easy, and anybody can do it with a little guidance</p>
+    <p>In this guide, you'll find answers to all those questions, and so many more that you may have thought up in the time you started reading this article. Whether you're an inexperienced student like me, or a professional engineer or just somebody who wants to learn neural style transer, this guide is for you :)
+    <p>Here's a look at what we'll cover</p>
+  
+    <h3>Part 1: Style transfer -- the basics</h3>
+    <ul>
+      <li>What is style transfer?</li>
+      <li>Modes and types of style transfer</li>
+      <li>Why is style transfer important?</li>
+    </ul>
+    <h3>Part 2: How does style transfer work?</h3>
+    <ul>
+      <li>Inputs and outputs</li>
+      <li>Basic Structure</li>
+      <li>Model architecture overview</li>
+      <li>How style transfer works on the edge</li>
+    </ul>
+ -->
+
+
+<!-- 
+  <p>At the base level, neural style transfer defines two distance functions such that you're able to copy the style of one image onto another. One that describes how different the content of two images are (Lcontent), and one that describes the difference between the two images in terms of their style (Lstyle). </p>
+  <p>After the initial imges are input, the algorithm will try to transform the input image to minimize the content distance with the content image and its style distance with the style image</p>
+
+
+  <h2>General Steps</h2>
+  <ol>
+    <li>visualize data</li>
+    <li>basic preprocessing/data preparation</li>
+    <li>Set up loss functions</li>
+    <li>Create loss function algorithm</li> 
+    <li>Optimize algorithm for two loss functions</li>
+  </ol> -->
+
+</body>
