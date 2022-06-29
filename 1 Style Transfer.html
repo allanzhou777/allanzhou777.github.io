@@ -19,8 +19,6 @@
 </head>
 
 
-
-
 <body>
   <section>
     <h1>
@@ -31,7 +29,8 @@
 
   <h2>Introduction</h2>
   <p>Lets say you wanted to compose images in the style of another image (every wish you could paint like Picasso or Van Gosh???). This is known as <b>neural style transfer</b>, which is a really cool optimization technique used to style two images -- a <b>content</b> image and a <b>style reference image</b> -- and blend them together such that the content image is "painted" in the style of the style image.</p>
-  <U>INSERT FRITZ AI PICTURE</U> 
+  <img src = "/photos/photosStyleTransfer/fritzai_multiple_styles.jpg" alt = "style transfer variations">
+
   <p>But how does style transfer actually work? Are there different approaches, what are potential benefits and limitations, and why exactly does this matter to me? Can I use it, or is this super complicated and tedious and time-consuming?
   <p style="font-size: 40%">Spoiler: its easy, and anybody can do it with a little guidance</p>
   <p>In this guide, you'll find answers to all those questions, and many many many more that you may have thought up in the time you started reading this article. Whether you're an inexperienced student (like me), a professional data scientist, or a digital art designer or just somebody who wants to learn neural style transfer, this guide is for you :)
@@ -68,8 +67,9 @@
   <h2>Part 1: Style transfer -- the basics</h2>
   <h3>What is style transfer</h3>
   <p>At the barebones level, style transfer allows you to recreate the content of an image in the style of another. If you’ve ever imagined what a photo might look like were it painted by a famous artist, then you're thinking of exactly what style transfer does.</p>
-  <p>Central Austin has a famous mural known as the "Greetings from Austin" mural (shown below). What if, instead of being drawn by a local Austinite, this mural was drawn by artist Hokusai, who also created the famous Great Wave? Well, style transfer allows you to create exactly that. Neat, eh!</p>
-  INSERT GREETINGS FROM AUSTIN PIC, AND TWO PICS WARM AND COOL 
+  <p>Central Austin has a famous mural known as the "Greetings from Austin" mural (shown below). What if, instead of being drawn by a local Austinite, this mural was drawn by Van Gogh in the style of his renown Starry Night? Well, style transfer allows you to create exactly that. Neat, eh!</p>
+  <img src = "/starry_night.jpg" alt = "starry night">
+  <img src = "/starry-night-austin-combo.png" alt = "starry night x austin">
 
   <h3>Modes and types of style transfer</h3>
   <p>Alright, so at this point, we know what style transfer can do. More generally though, style transfer is an example of image stylization, an image processing and manipulation technique utilized in the broader field of non-photorealistic rendering.</p>
