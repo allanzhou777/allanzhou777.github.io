@@ -40,37 +40,44 @@
           <li>List of weights for style layers — The weights assigned to each layer involved in the style loss function</li>
       </ol>
       <p>We’ll use the following images for carrying out the experiments:</p>
-INSERT HYPERPARAMETERS_0
+      <img src="\photos\photos_style_transfer\hyperparameters_0.png" alt="hyperparameter 1" style="width:30em;height:auto;" loading="lazy">
       <h3>5 Style Layers with Equal Loss Weights, 1 Content Layer</h3>
       <p>We’ll use this image to compare the result of altering the hyperparameters.</p>
-INSERT HYPERPARAMETERS_1
+      <img src="\photos\photos_style_transfer\hyperparameters_1.png" alt="hyperparameter 1" style="width:30em;height:auto;" loading="lazy">
+
       <h3>Increasing weight of style loss function from 0.005 to 0.1</h3>
       <p>As expected, increasing the weight nudges the algorithm to capture more style. Hence, the recomposition has a better combination of blue and yellow.</p>
-INSERT HYPERPARAMETERS_2
+      <img src="\photos\photos_style_transfer\hyperparameters_2.png" alt="hyperparameter 1" style="width:30em;height:auto;" loading="lazy">
+
       <h3>Using a single layer for style</h3>
       <p>Using just block_1_conv_1 for style loss does not result in a captivating recomposition. Perhaps, as syle consists of various shades and spatial attributes, filters from multiple layers are necessary.</p>
-INSERT HYPERPARAMETERS_3
+      <img src="\photos\photos_style_transfer\hyperparameters_3.png" alt="hyperparameter 1" style="width:30em;height:auto;" loading="lazy">
+
       <h3>Using a different layer for content loss</h3>
       <p>Using block1_conv1 for content information forces the network to capture global features from the target content image. This probably interferes with the global features from the style image, and we end up getting an appalling style transfer. The result, I believe, demonstrates why it is encouraged to use deeper layers for NST. They focus solely on local details about prominent objects in the content image, enabling a smooth replication of the style image’s theme.</p>
 
-INSERT HYPERPARAMETERS_4
+      <img src="\photos\photos_style_transfer\hyperparameters_4.png" alt="hyperparameter 1" style="width:30em;height:auto;" loading="lazy">
+
       <h3>Manually assigning weights to style layers [0.4,0.3,0.2,0.05,0.05]</h3>
       <p>Although there’s not a discernible difference between 4.1 and the current recomposition, it seems to me that the latter has an overall light shade. This can be due to a higher weight assigned to block1_conv_1, which according to 4.3, generates a white tone from the Starry night painting.</p>
-INSERT HYPERPARAMETERS_5
+      <img src="\photos\photos_style_transfer\hyperparameters_5.png" alt="hyperparameter 1" style="width:30em;height:auto;" loading="lazy">
+
       <h3>Manually assigning weights to style layers [0.05,0.05,0.2,0.3,0.4]</h3>
       <p>It has a more striking combination of colors compared to 4.5. Assigning higher weights to deeper layers provides more appealing results. Gram matrices from these layers are perhaps computing the correlation between more dominant global features from Starry Night.</p>
-INSERT HYPERPARAMETERS_6
+      <img src="\photos\photos_style_transfer\hyperparameters_6.png" alt="hyperparameter 1" style="width:30em;height:auto;" loading="lazy">
+
       <h3>Using multiple images for style transfer</h3>
       <p>Finally, let’s capture style from multiple images for more artistic recompositions. It entails a slight modification in style loss. Style loss for each <b>individual</b> image remains as discussed earlier in 3.2.2</p>
-INSERT STYLE_LOSS_1
+      <img src="\photos\photos_style_transfer\style_loss_1.gif" alt="hyperparameter 1" style="width:30em;height:auto;" loading="lazy">
+
       <p>However, the total style loss is:</p>
-INSERT STYLE_LOSS_2
+      <img src="\photos\photos_style_transfer\style_loss_2.gif" alt="hyperparameter 1" style="width:30em;height:auto;" loading="lazy">
       <p>Essentially, as we have done so far, we assign weight to style loss from each image and sum them up.</p>
 
       <h2>Conclusions</h2>
-      <p>Although this algorithm is complete now, I encourage you to carry out more experiments with the provided code. Also, I have implemented the algorithm from scratch, and there is likely a more efficient procedure. I hope it was fun generating art using neural networks. Combining neural style transfer with generative adversarial networks is an enticing proposition, and I hope to cover it in the future.</p>
-      <p>Visit the final part of this guide in [Part 6] to see a variety of resources you can utilize in your </p>
+      <p>Although this algorithm is complete now, I encourage you to carry out more experiments with the provided code. Also, I have implemented the algorithm from scratch, and there is likely a more efficient procedure. I hope it was fun generating art using neural networks. Combining neural style transfer with generative adversarial networks is an enticing proposition, and its possibilities are quite endless.</p>
+      <p>Visit the final part of this guide in [Part 6] to see a variety of resources you can utilize in your own projects</p>
 
-INSERT HYPERPARAMETERS_7
+      <img src="\photos\photos_style_transfer\hyperparameters_7.png" alt="hyperparameter 1" style="width:30em;height:auto;" loading="lazy">
 
   </body>

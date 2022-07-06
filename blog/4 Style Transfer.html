@@ -56,13 +56,16 @@ OUTPUT OF BLOCK 5 CONV 2 (FILTERS 4 AND 13, TWO PICS TOTAL)
     
     <h3>Style and combined loss</h3>
     <p>First, we need to establish the function for style loss. Suppose, upon passing the target style image through block_1_conv_1 we get a gram matrix G. We input our noise image X through the same layer and compute its gram matrix (P). The style loss is then calculated as:</p>
-INSERT FIRST IMAGE_RECOMPOSITION_1
+    <img src="\photos\photos_style_transfer\image_recomposition_1.gif" alt="image recomposition 1" style="width:30em;height:auto;" loading="lazy">
+
     <p>Here,(i,j) are index notations for locations in the gram matrices. By minimizing this function, we ensure that X has the same feature correlations as our target-style image.</p>
     <p>Another thing to note is that, unlike content loss which was calculated from a single layer, style loss is calculated from multiple layers.<a href="https://arxiv.org/pdf/1508.06576.pdf">Gaty's et al</a> used five layers for this purpose. Hence the final style loss is:</p>
-INSERT SECOND IMAGE_RECOMPOSITION_2
+    <img src="\photos\photos_style_transfer\image_recomposition_2.gif" alt="image recomposition 2" style="width:30em;height:auto;" loading="lazy">
+
     <p>W is the weight assigned to loss from each layer. It’s a hyperparameter and can be tweaked around to see how the recomposition changes. We’ll discuss the result of altering these weights and using a single layer for style transfer in the last section.</p>
     <p>The combined loss function is the sum of style and content loss. Again, each individual function has a weight. More weight to style will ensure that the recomposed image captures more style and vice versa.</p>
-INSERT THIRD IMAGE_RECOMPOSITION_3  
+    <img src="\photos\photos_style_transfer\image_recomposition_3.gif" alt="image recomposition 3" style="width:30em;height:auto;" loading="lazy">
+    
     <h2>Conclusion</h2>
     <p>Everything you've read up til now is to prepare you for the final step: the algorithm. To see the algorithm in its full glory, [click here] for part five of the style transfer guide. </p>
 
